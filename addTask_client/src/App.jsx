@@ -6,7 +6,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   // YOUR RENDER URL
-  const API = "https://addtask-b0qr.onrender.com/";
+  const API = "https://addtask-b0qr.onrender.com/tasks";
 
   // Fetch Tasks
   const fetchTasks = async () => {
