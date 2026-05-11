@@ -16,27 +16,48 @@ const pool = new Pool({
   },
 });
 
-// Get tasks
+// Home Route
+app.get("/", (req, res) => {
+  res.send("Backend Running");
+});
+
+// Get Tasks
 app.get("/tasks", async (req, res) => {
-  const result = await pool.query(
-    "SELECT * FROM tasks ORDER BY id DESC"
-  );
+  try {
+    const result = await pool.query(
+      "SELECT * FROM tasks ORDER BY id DESC"
+    );
 
-  res.json(result.rows);
+    res.json(result.rows);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "Error fetching tasks",
+    });
+  }
 });
 
-// Add task
+// Add Task
 app.post("/tasks", async (req, res) => {
-  const { title } = req.body;
+  try {
+    const { title } = req.body;
 
-  const result = await pool.query(
-    "INSERT INTO tasks(title) VALUES($1) RETURNING *",
-    [title]
-  );
+    const result = await pool.query(
+      "INSERT INTO tasks(title) VALUES($1) RETURNING *",
+      [title]
+    );
 
-  res.json(result.rows[0]);
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      error: "Error adding task",
+    });
+  }
 });
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
