@@ -5,9 +5,10 @@ function App() {
   const [title, setTitle] = useState("");
   const [tasks, setTasks] = useState([]);
 
-  const API = "http://localhost:5000";
+  // YOUR RENDER URL
+  const API = "https://addtask-b0qr.onrender.com/";
 
-  // Fetch tasks
+  // Fetch Tasks
   const fetchTasks = async () => {
     try {
       const res = await axios.get(`${API}/tasks`);
@@ -21,7 +22,7 @@ function App() {
     fetchTasks();
   }, []);
 
-  // Add task
+  // Add Task
   const addTask = async () => {
     if (!title.trim()) return;
 
@@ -61,7 +62,6 @@ function App() {
           style={{
             textAlign: "center",
             marginBottom: "25px",
-            color: "#333",
           }}
         >
           Task Manager
@@ -76,7 +76,7 @@ function App() {
         >
           <input
             type="text"
-            placeholder="Enter a task..."
+            placeholder="Enter task"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             style={{
@@ -84,8 +84,6 @@ function App() {
               padding: "12px",
               borderRadius: "10px",
               border: "1px solid #ccc",
-              outline: "none",
-              fontSize: "16px",
             }}
           />
 
@@ -98,7 +96,6 @@ function App() {
               padding: "12px 18px",
               borderRadius: "10px",
               cursor: "pointer",
-              fontWeight: "bold",
             }}
           >
             Add
@@ -123,10 +120,7 @@ function App() {
                   background: "#f8fafc",
                   padding: "14px",
                   borderRadius: "10px",
-                  marginBottom: "12px",
-                  border: "1px solid #e2e8f0",
-                  fontSize: "16px",
-                  color: "#333",
+                  marginBottom: "10px",
                 }}
               >
                 {task.title}
